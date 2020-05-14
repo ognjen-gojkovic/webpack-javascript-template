@@ -10,22 +10,6 @@ module.exports = merge(common, {
     path: path.resolve(__dirname, "dist"),
     publicPath: "",
   },
-  module: {
-    rules: [
-      {
-        test: /\.(jpg|png|gif)$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[name].[ext]",
-              outputPath: "./assets/img",
-            },
-          },
-        ],
-      },
-    ],
-  },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "src", "index.html"),
