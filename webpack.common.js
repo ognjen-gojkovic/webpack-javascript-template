@@ -18,16 +18,21 @@ module.exports = {
         ],
       },
       {
-        test: /\.(css)$/,
+        test: /\.(css|scss)$/,
         use: [
           { loader: MiniCssExtractPlugin.loader },
           {
             loader: "css-loader",
             options: {
+              minimize: true,
+              // modules: false,
               modules: {
                 localIdentName: "[local]__[hash:base64:5]",
               },
             },
+          },
+          {
+            loader: "sass-loader",
           },
         ],
       },
@@ -37,8 +42,13 @@ module.exports = {
           {
             loader: "file-loader",
             options: {
-              name: "[name].[ext]",
-              outputPath: "./assets/img",
+              name: "./assets/img[name].[ext]",
+              outputPath: "",
+              // we need to edit manually public path because by default returns wierd path
+              // public path is property that in dist folder in css file edit url() path to files
+              publicPath: function (url) {
+                return url.replace("assets", "..");
+              },
             },
           },
         ],
